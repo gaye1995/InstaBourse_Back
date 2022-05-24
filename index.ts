@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 app.use((error: any, request: Request, response: Response, next: NextFunction) => {

@@ -24,12 +24,14 @@ export const getJwtPayload = async (token: string): Promise<any | null> => {
     return null;
 };
 export const getAuthToken = async (user: any) => {
-    console.log('rrrr');
-    // const token = jsonwebtoken.sign({ _id: user._id, email: user.email }, JWT_KEY, { expiresIn: '24h' })
-    // user.token = token;
-    // await User.updateOne({ _id: mongoose.Types.ObjectId(user._id), email: user.email }, { $set: { token: user.token } });
+    const token = jsonwebtoken.sign({ _id: user._id, email: user.email }, JWT_KEY, { expiresIn: '24h' })
+    user.token = token;
+    console.log(token)
+    await User.updateOne({ _id: mongoose.Types.ObjectId(user._id), email: user.email }, { $set: { token: user.token } });
     return user;
 };
+// 
+
 export const getAuthRefreshToken = async (user: any) => {
     user.refreshToken = jsonwebtoken.sign({ _id: user._id, email: user.email }, JWT_KEY, { expiresIn: '30d' });
     await User.updateOne({ _id: mongoose.Types.ObjectId(user._id) }, { refreshToken: user.refreshToken });

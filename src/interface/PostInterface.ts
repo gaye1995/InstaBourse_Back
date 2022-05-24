@@ -3,6 +3,7 @@ export interface PostInterface {
     titre: string;
     contenu: string;
     commentaire:string;
+    userId:string;
     createdAt: Date;
     updatedAt: Date;
 }
