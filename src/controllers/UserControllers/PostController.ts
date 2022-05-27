@@ -31,4 +31,23 @@ export class PostController {
         }
     } 
 
+    static listPost = async (req: Request, res: Response) => {
+      
+        try {
+            const authorization: any = req.headers.authorization;
+            const token = await jwt.getToken(authorization);
+            const dataparams = await jwt.getJwtPayload(token);
+            const post: any = await Post.find();
+            console.log(post)
+
+            // Envoi de la réponse
+            res.status(200).send({ error: false, message: 'Liste de toute les Articles', post: post });
+        } catch (err) {
+            if (err.code === 400) res.status(400).send({ error: true, message: 'Données manquants ' });
+            if (err.code === 401) res.status(400).send({ error: true, message: 'Ce post a été déjas publié' });
+
+            else { console.log('erreur'); }
+        }
+    } 
+
 }
